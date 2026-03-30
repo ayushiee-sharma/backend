@@ -1,5 +1,7 @@
 import express from "express"
 const app=express()
+import * as fs from 'node:fs/promises';
+import { json } from "node:stream/consumers";
 import path from "path"
 import { fileURLToPath } from "url"
 
@@ -14,8 +16,31 @@ app.use(express.static(path.join(__dirname,"public")));
 // settting up ejs as a viewengine
 app.set('view engine','ejs')
 
-app.get("/",function(req,res){
-    res.render("index");
+app.get("/",async function(req,res){
+    try{
+            let data= await fs.readFile("tasks.json","utf-8")
+            data=JSON.parse(data)
+            res.render("index",{files : data});
+    }
+    catch(err){
+        
+    }
+
+})
+app.post("/submit",async (req,res)=>{
+    try{
+        let data = await fs.readFile("tasks.json",'utf-8')
+        data=JSON.parse(data)
+        data.push(req.body)
+        data=JSON.stringify(data)
+        await fs.writeFile("tasks.json",data)
+        res.redirect('/')
+        res.render('index',)
+    }
+    catch(err){
+        console.log(err)
+    }
+
 })
 
-app.listen(1000)
+app.listen(3000)

@@ -5,9 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
+     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-     <h1>hieeee jii <%= 2+2%></h1>
+
+<body
+class="bg-black">
+    <div class="main w-full  h-screen bg-black/500">
+           <div class="form pt-10 px-10 h-1/3 text-white ">
+              <form action="/submit" method="post" class="h-full">
+                <input name="title" type="text" class="block rounded-md px-3 py-2 bg-zinc-800 outline-none" placeholder="enter title">
+                <textarea name="details" id="" class="px-3 mt-3 py-2 h-30 w-full rounded-md bg-zinc-800 resize-none" placeholder="write your notes here"></textarea>
+                <input type="submit" value="create task" class="block py-1 h-10 w-32 mt-4 rounded-md bg-blue-500 ">
+
+              </form>
+           </div>
+           <div class="tasks  px-12 flex gap-4 flex-wrap">
+            <% files.forEach((e)=>{ %>
+            
+               <div class="w-72 px-3 py-4 rounded-md bg-zinc-700 text-white">
+                    <h1 class="font-bold text-lg"><%= e.title %></h1>
+                   <a href="" class="text-blue-400 inline-block mt-3 ">read more</a>
+               </div>
+    
+           <% }) %>
+           </div>
+           
+           
+    </div>
+    
      <script src="/javascripts/script.js"></script>
 </body>
 </html>

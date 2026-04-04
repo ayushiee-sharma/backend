@@ -16,14 +16,6 @@ app.set("view engine","ejs")
 app.get("/",(req,res)=>{
    res.render("index")
 })
-app.get("/read",async (req,res)=>{
-   let allusers = await UserModel.find()
-   res.render("read",{allusers})
-})
-app.get("/delete/:id",async (req,res)=>{
-    await UserModel.findOneAndDelete({_id:req.params.id})
-    res.redirect("/read")
-})
 app.post("/create",async (req,res)=>{
    let createduser=await UserModel.create({
       name:req.body.name,
@@ -32,6 +24,16 @@ app.post("/create",async (req,res)=>{
    })
  res.redirect("/read")
 })
+
+app.get("/read",async (req,res)=>{
+   let allusers = await UserModel.find()
+   res.render("read",{allusers})
+})
+app.get("/delete/:id",async (req,res)=>{
+    await UserModel.findOneAndDelete({_id:req.params.id})
+    res.redirect("/read")
+})
+
 app.get("/updation/:id",async (req,res)=>{
    let user=await UserModel.findOne({_id:req.params.id})
    res.render("updation",{user})

@@ -1,0 +1,11 @@
+const mongoose=require("mongoose")
+
+const schema=new mongoose.Schema({
+    username:String,
+    email:{
+        type: String,
+        unique:true,
+    },
+    password:String,
+})
+ module.exports=mongoose.model("user",schema)
